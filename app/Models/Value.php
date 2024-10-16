@@ -5,14 +5,29 @@ class value {
         return [
             [
             'id' => 1,
-            'tytul' => 'logowanie',
+            'tytul' => '1',
             'opis' => 'opis'
         ],
         [
              'id' => 2,
-            'tytul' => 'hasło',
+            'tytul' => '2',
             'opis' => 'opis'
-        ]
+        ],
+        [
+            'id' => 3,
+           'tytul' => 'hasło',
+           'opis' => 'opis'
+        ],
+        [
+        'id' => 4,
+       'tytul' => 'hasło',
+       'opis' => 'opis'
+        ],
+        [
+        'id' => 5,
+        'tytul' => 'hasło',
+        'opis' => 'opis'
+        ],
         ];
 }
 public static function find($id) {

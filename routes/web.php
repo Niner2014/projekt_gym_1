@@ -17,3 +17,4 @@ Route::get('/simple/{id}', function ($id) {
         'value' => value::find($id)
     ]);
 });
+
