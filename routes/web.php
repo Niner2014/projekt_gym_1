@@ -1,20 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Value;
-
-use function PHPUnit\Framework\returnSelf;
+use App\Models\ListeKlienci;
 
 Route::get('/', function () {
-    return view('simple' , [
+    return view('simple', [
         'heading' => 'Bieżące logowanie',
-        'variable' => value::all()
+        'variable' => ListeKlienci::all() // Upewnij się, że używasz poprawnej nazwy modelu
     ]);
 });
 
 Route::get('/simple/{id}', function ($id) {
-    return view('value', [
-        'value' => value::find($id)
+    return view('klient', [
+        'klient' => ListeKlienci::find($id) // Upewnij się, że używasz poprawnej nazwy modelu
     ]);
 });
-

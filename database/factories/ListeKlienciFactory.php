@@ -4,9 +4,9 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ListeUzytkownicyFactory extends Factory
+class ListeKlienciFactory extends Factory
 {
-    protected $model = \App\Models\ListeUzytkownicy::class; // Upewnij się, że model jest poprawny
+    protected $model = \App\Models\ListeKlienci::class; // Upewnij się, że model jest poprawny
 
     public function definition(): array
     {

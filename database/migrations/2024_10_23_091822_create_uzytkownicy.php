@@ -11,14 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('liste_uzytkownicy', function (Blueprint $table) {
+        Schema::create('uzytkownicy', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('tags');
-            $table->string('company');
-            $table->string('location');
-            $table->string('email');
-            $table->longText('description');
             $table->timestamps();
         });
     }
@@ -28,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('liste_uzytkownicy');
+        Schema::dropIfExists('uzytkownicy');
     }
 };
