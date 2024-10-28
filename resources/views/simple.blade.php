@@ -10,11 +10,11 @@
         <p>Nie znaleziono</p>
     @else
         @foreach($variable as $klient)
-        <div class="bg-gray-50 border border-gray-200 rounded p-6">
+        <div class="bg-gray-50 border border-gray-400 rounded p-6">
             <div class="justify-around">
                 <img
                     class="hidden w-48 mr-6 md:block"
-                    src="{{ asset('images/no-image.png') }}"
+                    src="{{ asset('images/3.jpg') }}"
                     alt="Zdjęcie {{$klient['imie']}} {{$klient['nazwisko']}}"
                 />
                 <div>
