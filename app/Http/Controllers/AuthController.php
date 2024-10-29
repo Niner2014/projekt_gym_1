@@ -17,7 +17,13 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'required|string|min:8|confirmed',
+            'admin_code' => 'required|string', // Walidacja kodu admina
         ]);
+        
+        // Sprawdzenie poprawności kodu admina
+        if ($request->admin_code !== 'Admin218') {
+            return back()->withErrors(['admin_code' => 'Kod dostępu admina jest nieprawidłowy.']);
+        }
 
         $uzytkownik = Uzytkownik::create([
             'name' => $request->name,

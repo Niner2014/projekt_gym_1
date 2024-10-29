@@ -20,7 +20,12 @@
                 <input type="password" name="password" id="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-laravel">
             </div>
             <button type="submit" style="background-color: #ef3b2d; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Zaloguj się</button>
-
+            
+            <p class="text-center text-gray-600 mt-4">
+                Nie masz konta? 
+                <a href="{{ route('register') }}" class="text-laravel font-semibold hover:underline">Zarejestruj się</a>
+            </p>
+            
         </form>
     </div>
 </body>

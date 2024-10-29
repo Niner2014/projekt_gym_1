@@ -45,7 +45,10 @@
 
             <label for="password_confirmation" class="block mb-2">Potwierdź hasło:</label>
             <input type="password" name="password_confirmation" id="password_confirmation" required class="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring focus:ring-laravel">
-
+            
+            <label for="admin_code" class="block mb-2">Kod dostępu admina:</label>
+            <input type="password" name="admin_code" id="admin_code" required class="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring focus:ring-laravel">
+            
             <button type="submit" class="w-full bg-laravel text-white rounded-lg p-2 hover:bg-red-600 transition duration-200">Zarejestruj się</button>
         </form>
     </div>
