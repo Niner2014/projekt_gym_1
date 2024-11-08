@@ -38,6 +38,20 @@
                 <a href="{{ route('dodajklient') }}" class="text-accentYellow hover:text-white">
                     <i class="fa-solid fa-user-plus"></i> Dodaj Klienta
                 </a>
+                <li>
+                    <a href="{{ route('sprzedaz') }}" class="text-accentYellow hover:text-white">
+                        </i> Sprzedaż
+                    </a>
+                <li>
+                    <a href="{{ route('magazyn') }}" class="text-accentYellow hover:text-white">
+                        </i> Magazyn
+                    </a>
+                <li>
+                <a href="{{ route('regulamin') }}" class="text-accentYellow hover:text-white">
+                    </i> Regulamin
+                </a>
+            </li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
             </li>
             <li>
                 <a href="{{ route('register') }}" class="text-accentYellow hover:text-white">

@@ -14,11 +14,24 @@ Route::middleware('auth')->group(function () {
         ]);
     });
 
-    Route::get('/simple/{id}', function ($id) {
+    Route::get('/simple/{imie}-{nazwisko}', function ($imie, $nazwisko) {
         return view('klient', [
-            'klient' => ListeKlienci::find($id) 
+            'klient' => ListeKlienci::where('imie', $imie)->where('nazwisko', $nazwisko)->firstOrFail() 
         ]);
     });
+
+    Route::get('/regulamin', function () {
+        return view('regulamin');
+    })->name('regulamin');
+
+    Route::get('/sprzedaz', function () {
+        return view('sprzedaz');
+    })->name('sprzedaz');
+
+    Route::get('/magazyn', function () {
+        return view('magazyn');
+    })->name('magazyn');
+    
     
     Route::get('/dodaj-klienta', [ClientController::class, 'create'])->name('dodajklient');
     Route::post('/klient', [ClientController::class, 'store'])->name('klient.store');

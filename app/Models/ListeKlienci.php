@@ -33,6 +33,7 @@ class ListeKlienci extends Model
         'data_zapisania',
         'aktywny',
         'notatki',
+        'profilowe', 
     ];
 
     /**
@@ -45,4 +46,3 @@ class ListeKlienci extends Model
         'aktywny' => 'boolean',     // Castowanie aktywności na typ boolean
     ];
 }
-

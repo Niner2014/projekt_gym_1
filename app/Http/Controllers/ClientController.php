@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ListeKlienci; // Importuj model
+use App\Models\ListeKlienci;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
     // Metoda do wyświetlania profilu klienta
     public function showClientProfile($id)
     {
-        $klient = ListeKlienci::findOrFail($id); 
-
-        return view('klient', compact('klient')); 
+        $klient = ListeKlienci::findOrFail($id);
+        return view('klient', compact('klient'));
     }
 
     // Metoda do aktualizacji notatek klienta
@@ -23,9 +23,8 @@ class ClientController extends Controller
         ]);
 
         $klient = ListeKlienci::findOrFail($id);
-        
         $klient->notatki = $request->notatki;
-        $klient->save(); 
+        $klient->save();
 
         return redirect()->route('klient.showClientProfile', $klient->id)
                          ->with('success', 'Notatki zostały zaktualizowane pomyślnie.');
@@ -34,12 +33,13 @@ class ClientController extends Controller
     // Metoda do wyświetlania formularza dodawania klienta
     public function create()
     {
-        return view('dodajklient');
+        return view('dodajklient');  // Formularz do dodania klienta
     }
 
     // Metoda do przechwytywania danych z formularza i dodawania klienta do bazy danych
     public function store(Request $request)
     {
+        // Walidacja danych wejściowych, w tym opcjonalnie pliku zdjęcia
         $request->validate([
             'imie' => 'required|string|max:255',
             'nazwisko' => 'required|string|max:255',
@@ -52,9 +52,10 @@ class ClientController extends Controller
             'notatki' => 'nullable|string',
             'data_zapisania' => 'nullable|date',
             'aktywny' => 'nullable|boolean',
+            'profilowe' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Walidacja pliku zdjęcia
         ]);
-
-        // Tworzenie nowego klienta
+    
+        // Tworzenie nowego klienta bez zdjęcia, żeby uzyskać jego ID
         $klient = ListeKlienci::create([
             'imie' => $request->imie,
             'nazwisko' => $request->nazwisko,
@@ -65,11 +66,25 @@ class ClientController extends Controller
             'wzrost' => $request->wzrost,
             'plec' => $request->plec,
             'notatki' => $request->notatki,
-            'data_zapisania' => now(), // Ustawiamy aktualną datę jako datę zapisu
-            'aktywny' => true, // Domyślnie ustawiamy klienta jako aktywnego
+            'data_zapisania' => now(),
+            'aktywny' => true,
         ]);
-
+    
+        if ($request->hasFile('profilowe')) {
+            $file = $request->file('profilowe');
+            $filename = time() . '.' . $file->getClientOriginalExtension();  // Generowanie unikalnej nazwy pliku
+            $file->storeAs('public/profile', $filename);  // Przechowywanie pliku w folderze 'storage/app/public/profile'
+            
+            // Zapisanie ścieżki do zdjęcia w bazie danych
+            $klient->profilowe = 'profile/' . $filename;
+        }
+    
+        // Zapisanie klienta do bazy danych
+        $klient->save();
+        
+    
         return redirect()->route('klient.showClientProfile', $klient->id)
                          ->with('success', 'Klient został dodany pomyślnie.');
     }
+    
 }

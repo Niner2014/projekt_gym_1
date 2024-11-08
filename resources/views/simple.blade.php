@@ -10,17 +10,19 @@
         <p>Nie znaleziono</p>
     @else
         @foreach($variable as $klient)
-        <div class="border border-gray-400 rounded p-6" style="background-color: #534f36;"> <!-- Tło ustawione na HEX -->
-            <div class="justify-around">
-                <img
-                    class="hidden w-48 mr-6 md:block"
-                    src="{{ asset('images/3.jpg') }}"
-                    alt="Zdjęcie {{$klient['imie']}} {{$klient['nazwisko']}}"
-                />
+        <div class="border border-gray-400 rounded p-6" style="background-color: #55524a;"> <!-- Tło ustawione na HEX -->
+            <div class="justify-center">
+                <img src="{{ asset($klient->profilowe ? 'storage/' . $klient->profilowe : 'storage/profile/brak.jpg') }}" 
+                alt="Zdjęcie {{ $klient->imie }} {{ $klient->nazwisko }}" 
+                class="w-36 h-36 object-cover rounded-full border border-gray-300">
+           
                 <div>
-                    <h3 class="text-2xl text-yellow-500"> <!-- Żółty kolor dla imienia i nazwiska -->
-                        <a href="/simple/{{$klient['id']}}">{{$klient['imie']}} {{$klient['nazwisko']}}</a>
+                    <h3 class="text-2xl text-yellow-500">
+                        <a href="/simple/{{ strtolower(str_replace(' ', '-', $klient['imie'])) }}-{{ strtolower(str_replace(' ', '-', $klient['nazwisko'])) }}">
+                            {{ $klient['imie'] }} {{ $klient['nazwisko'] }}
+                        </a>
                     </h3>
+                    
                     <div class="text-lg font-bold mb-4 text-yellow-500"> <!-- Żółty kolor dla statusu -->
                         Status: {{ $klient['aktywny'] ? 'Aktywny' : 'Nieaktywny' }}
                     </div>
