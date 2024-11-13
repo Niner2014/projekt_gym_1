@@ -21,11 +21,13 @@
                         <a href="/simple/{{ strtolower(str_replace(' ', '-', $klient['imie'])) }}-{{ strtolower(str_replace(' ', '-', $klient['nazwisko'])) }}">
                             {{ $klient['imie'] }} {{ $klient['nazwisko'] }}
                         </a>
-                    </h3>
-                    
-                    <div class="text-lg font-bold mb-4 text-yellow-500"> <!-- Żółty kolor dla statusu -->
-                        Status: {{ $klient['aktywny'] ? 'Aktywny' : 'Nieaktywny' }}
-                    </div>
+                    </h3>  
+                    <div class="text-lg font-bold mb-4">
+                        <span class="text-yellow-500">Status:</span> 
+                        <span class="{{ $klient['aktywny'] ? 'text-green-500' : 'text-red-500' }}">
+                            {{ $klient['aktywny'] ? 'Aktywny' : 'Nieaktywny' }}
+                        </span>
+                    </div>  
                     <ul>
                         <li class="flex items-center justify-center bg-black text-white rounded-xl py-1 px-3 mr-2 text-xs">
                             <span class="font-bold">Tel.:</span> {{ chunk_split($klient['telefon'], 3, ' ') }}

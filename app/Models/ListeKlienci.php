@@ -1,32 +1,22 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ListeKlienci extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'liste_klienci'; // Nazwa tabeli
+    protected $table = 'liste_klienci';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'imie',
         'nazwisko',
         'email',
         'telefon',
-        'wiek',
+        'data_urodzenia',
         'waga',
         'wzrost',
         'plec',
@@ -36,13 +26,15 @@ class ListeKlienci extends Model
         'profilowe', 
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
-        'data_zapisania' => 'date', // Castowanie daty zapisania do formatu date
-        'aktywny' => 'boolean',     // Castowanie aktywności na typ boolean
+        'data_zapisania' => 'date',
+        'data_urodzenia' => 'date',
+        'aktywny' => 'boolean',
     ];
+
+    // Metoda, która sprawdza, czy klient jest aktywny w zależności od daty zapisania
+    public function getCzyAktywnyAttribute()
+    {
+        return Carbon::parse($this->data_zapisania)->addDays(30)->isFuture();
+    }
 }

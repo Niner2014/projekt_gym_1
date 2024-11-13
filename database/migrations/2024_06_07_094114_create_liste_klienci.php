@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nazwisko'); // Nazwisko klienta
             $table->string('email')->unique(); // Unikalny adres e-mail
             $table->string('telefon', 9)->nullable(); // Opcjonalny numer telefonu z maksymalną długością 9 znaków
-            $table->integer('wiek')->nullable(); // Wiek klienta
+            $table->integer('wiek')->nullable(); // Wiek klienta 
             $table->decimal('waga', 5, 2)->nullable(); // Waga klienta (opcjonalnie)
             $table->decimal('wzrost', 5, 2)->nullable(); // Wzrost klienta (opcjonalnie)
             $table->string('plec'); // Płeć klienta

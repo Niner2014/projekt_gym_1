@@ -45,9 +45,9 @@
             <input type="text" id="telefon" name="telefon" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-[#FFD700] focus:border-[#FFD700] text-black" value="{{ old('telefon') }}" />
         </div>
         <div class="mb-4">
-            <label for="wiek" class="block text-sm font-medium text-[#1A1A1A]">Wiek</label>
-            <input type="number" id="wiek" name="wiek" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-[#FFD700] focus:border-[#FFD700] text-black" value="{{ old('wiek') }}" />
-        </div>
+            <label for="data_urodzenia" class="block text-sm font-medium text-[#1A1A1A]">Data urodzenia</label>
+            <input type="date" id="data_urodzenia" name="data_urodzenia" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-[#FFD700] focus:border-[#FFD700] text-black" value="{{ old('data_urodzenia') }}" />
+        </div>     
         <div class="mb-4">
             <label for="waga" class="block text-sm font-medium text-[#1A1A1A]">Waga</label>
             <input type="number" id="waga" name="waga" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-[#FFD700] focus:border-[#FFD700] text-black" value="{{ old('waga') }}" />
