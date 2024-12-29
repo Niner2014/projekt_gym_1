@@ -1,16 +1,15 @@
-@extends('układ') 
+@extends('układ')
 
 @section('content')
 @include('partials._hero')
 @include('partials._search')
 
-<div class="lg:grid lg:grid-cols-3 gap-8 space-y-4 md:space-y-0 mx-4">
-    
+<div class="grid gap-4 mx-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
     @if(count($variable) == 0)
         <p>Nie znaleziono</p>
     @else
         @foreach($variable as $klient)
-        <div class="border border-gray-400 rounded p-6" style="background-color: #55524a;"> <!-- Tło ustawione na HEX -->
+        <div class="border border-gray-400 rounded p-6" style="background-color: #55524a;">
             <div class="justify-center">
                 <img src="{{ asset($klient->profilowe ? 'storage/' . $klient->profilowe : 'storage/profile/brak.jpg') }}" 
                 alt="Zdjęcie {{ $klient->imie }} {{ $klient->nazwisko }}" 

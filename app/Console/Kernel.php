@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             ListeKlienci::where('data_zapisania', '<', Carbon::now()->subDays(30))
                 ->update(['aktywny' => false]);
-        })->daily(); // Wykonuje się codziennie
+        })->everyMinute();
     }
 
     /**

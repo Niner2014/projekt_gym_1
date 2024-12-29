@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Klient;
 use App\Models\ListeKlienci;
 use Illuminate\Http\Request;
 
@@ -99,4 +100,28 @@ class ClientController extends Controller
         return redirect()->route('klient.showClientProfile', $klient->id)
                          ->with('success', 'Klient został dodany pomyślnie.');
     }
+
+    public function index(Request $request)
+    {
+        // Pobieramy wyszukiwaną frazę z formularza
+        $search = $request->input('search');
+        
+        // Jeśli fraza jest podana, wykonujemy zapytanie wyszukujące w bazie
+        if ($search) {
+            $klienci = ListeKlienci::where('imie', 'like', "%{$search}%")
+                ->orWhere('nazwisko', 'like', "%{$search}%")
+                ->orWhere('telefon', 'like', "%{$search}%")
+                ->get();
+        } else {
+            // Jeśli fraza nie jest podana, pobieramy wszystkich klientów
+            $klienci = ListeKlienci::all();
+        }
+
+        // Zwracamy widok z wynikami wyszukiwania
+        return view('simple', [
+            'heading' => 'Bieżące logowanie',
+            'variable' => $klienci,
+        ]);
+    }
 }
+

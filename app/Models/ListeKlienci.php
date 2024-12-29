@@ -37,4 +37,27 @@ class ListeKlienci extends Model
     {
         return Carbon::parse($this->data_zapisania)->addDays(30)->isFuture();
     }
+
+    // Uruchamia zdarzenie `updated` po każdej aktualizacji rekordu
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Zdarzenie po każdej aktualizacji rekordu
+        static::updated(function ($klient) {
+            if ($klient->getCzyAktywnyAttribute()) {
+                $klient->aktywny = true;
+                $klient->save();
+            }
+        });
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        if (isset($filters['search']) ?? false) {
+            $query->where('imie', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('nazwisko', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('telefon', 'like', '%' . $filters['search'] . '%');
+        }
+    }
 }

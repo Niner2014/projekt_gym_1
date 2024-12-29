@@ -25,11 +25,22 @@ class Produkt extends Model
      * @return void
      */
     public function updateStock($quantitySold)
-    {
-        // Zmniejsza stan magazynowy o liczbę sprzedanych sztuk
-        $this->stock -= $quantitySold;
-
-        // Zapisuje zmiany w bazie danych
-        $this->save();
+{
+    // Sprawdza, czy liczba sprzedanych sztuk jest większa od zera
+    if ($quantitySold <= 0) {
+        throw new \InvalidArgumentException("Liczba sprzedanych sztuk musi być większa niż zero.");
     }
+
+    // Sprawdza, czy jest wystarczająca ilość produktów w magazynie
+    if ($this->stock < $quantitySold) {
+        throw new \Exception("Brak wystarczającej ilości produktów w magazynie.");
+    }
+
+    // Zmniejsza stan magazynowy o liczbę sprzedanych sztuk
+    $this->stock -= $quantitySold;
+
+    // Zapisuje zmiany w bazie danych
+    $this->save();
+}
+
 }

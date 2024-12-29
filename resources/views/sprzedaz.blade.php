@@ -71,55 +71,119 @@
     </div>
 </div>
 
-<script>
-    // Produkty z cenami na sztywno
-    const produkty = @json($produkty);
 
-    // Koszyk na produkty
+<script>
+    const produkty = @json($produkty);
     let koszyk = [];
 
-    // Funkcja dodawania produktów do koszyka
-    document.getElementById('dodaj').addEventListener('click', function() {
+    // Dodawanie produktów do koszyka
+    document.getElementById('dodaj').addEventListener('click', () => {
         const produktId = document.getElementById('produkt').value;
-        const ilosc = document.getElementById('ilosc').value;
-        const cenaJednostkowa = produkty.find(produkt => 'product' + produkt.id === produktId).price;
-        const cenaCalosci = cenaJednostkowa * ilosc;
+        const ilosc = parseInt(document.getElementById('ilosc').value, 10);
+        const wybranyProdukt = produkty.find(produkt => 'product' + produkt.id === produktId);
 
-        // Dodanie przedmiotu do koszyka
-        koszyk.push({ produktId, ilosc, cenaCalosci });
+        if (!wybranyProdukt) {
+            alert("Wybrany produkt nie istnieje.");
+            return;
+        }
 
-        // Dodanie przedmiotu do listy na stronie
-        const li = document.createElement('li');
-        li.textContent = `${produkty.find(produkt => 'product' + produkt.id === produktId).name} - ${ilosc} szt. - ${cenaCalosci.toFixed(2)} PLN`;
-        document.getElementById('koszyk').appendChild(li);
+        const iloscWKoszyku = koszyk
+            .filter(item => item.produktId === produktId)
+            .reduce((sum, item) => sum + item.ilosc, 0);
 
-        // Aktualizacja całkowitej ceny koszyka
+        if (ilosc + iloscWKoszyku > wybranyProdukt.stock) {
+            alert(`Nie możesz dodać więcej niż ${wybranyProdukt.stock} sztuk produktu "${wybranyProdukt.name}" Brak więcej produktu na stanie.`);
+            return;
+        }
+
+        const istniejącyProdukt = koszyk.find(item => item.produktId === produktId);
+        if (istniejącyProdukt) {
+            istniejącyProdukt.ilosc += ilosc;
+            istniejącyProdukt.cenaCalosci = istniejącyProdukt.ilosc * wybranyProdukt.price;
+
+            const li = document.querySelector(`#koszyk li[data-produkt-id="${produktId}"]`);
+            li.textContent = `${wybranyProdukt.name} - ${istniejącyProdukt.ilosc} szt. - ${istniejącyProdukt.cenaCalosci.toFixed(2)} PLN`;
+        } else {
+            const cenaCalosci = wybranyProdukt.price * ilosc;
+            koszyk.push({ produktId, ilosc, cenaCalosci });
+
+            const li = document.createElement('li');
+            li.setAttribute('data-produkt-id', produktId);
+            li.textContent = `${wybranyProdukt.name} - ${ilosc} szt. - ${cenaCalosci.toFixed(2)} PLN`;
+            document.getElementById('koszyk').appendChild(li);
+        }
+
         const cenaKoszyka = koszyk.reduce((sum, item) => sum + item.cenaCalosci, 0);
         document.getElementById('cena_koszyka').textContent = `${cenaKoszyka.toFixed(2)} PLN`;
     });
 
-    // Funkcja do realizacji sprzedaży (na razie na sztywno)
-    document.getElementById('sprzedaz').addEventListener('click', function() {
+    // Sprzedaż
+    document.getElementById('sprzedaz').addEventListener('click', async () => {
         if (koszyk.length === 0) {
-            alert('Koszyk jest pusty! Dodaj produkty do koszyka.');
+            alert('Koszyk jest pusty!');
             return;
         }
 
-        // Podsumowanie sprzedaży
-        let podsumowanie = "Sprzedano:\n";
-        koszyk.forEach(item => {
-            podsumowanie += `${produkty.find(produkt => 'product' + produkt.id === item.produktId).name} - ${item.ilosc} szt. - ${item.cenaCalosci.toFixed(2)} PLN\n`;
+        try {
+            const response = await fetch('{{ route("sprzedaz.zapisz") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ koszyk })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert('Sprzedano. Zapisano zmiany!');
+                koszyk = [];
+                document.getElementById('koszyk').innerHTML = '';
+                document.getElementById('cena_koszyka').textContent = '0,00 PLN';
+                location.reload();
+            } else {
+                alert(result.message || 'Wystąpił problem!');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Błąd podczas realizacji sprzedaży.');
+        }
+    });
+
+    // Generowanie rejestru dobowego (na razie sztywno)
+    document.getElementById('generuj-rejestr').addEventListener('click', () => {
+        alert('Rejestr dobowy został wygenerowany!');
+    });
+</script>
+<div class="container mx-auto my-8 px-4">
+    <div class="flex justify-center">
+        <button id="generujRejestr" class="bg-red-500 hover:bg-red-400 text-white py-2 px-6 rounded-md mt-4">
+            Generuj rejestr dobowy
+        </button>
+    </div>
+</div>
+
+<script>
+    // Po kliknięciu na przycisk generujemy rejestr
+    document.getElementById('generujRejestr').addEventListener('click', function() {
+        // Używamy AJAX do wysłania żądania do kontrolera
+        fetch('/rejestr/pdf', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.blob())  // Odbieramy PDF w formie blob
+        .then(blob => {
+            // Tworzymy link do pobrania PDF
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'rejestr_dobowy.pdf';  // Nazwa pliku do pobrania
+            link.click();  // Uruchamiamy pobieranie
+        })
+        .catch(error => {
+            console.error('Błąd przy generowaniu rejestru:', error);
         });
-
-        const cenaKoszyka = koszyk.reduce((sum, item) => sum + item.cenaCalosci, 0);
-        podsumowanie += `\nCałkowita cena: ${cenaKoszyka.toFixed(2)} PLN`;
-
-        alert(podsumowanie);
-
-        // Wyczyszczenie koszyka
-        koszyk = [];
-        document.getElementById('koszyk').innerHTML = '';
-        document.getElementById('cena_koszyka').textContent = '0,00 PLN';
     });
 </script>
 

@@ -5,8 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Klient extends Model
+class Schedule extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'day', 'desc1', 'desc2', 'desc3'
+    ];
 }

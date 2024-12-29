@@ -1,4 +1,4 @@
-<form action="">
+<form action="/">
     <div class="relative border-2 border-gray-100 m-4 rounded-lg">
         <div class="absolute top-4 left-3">
             <i
@@ -8,7 +8,7 @@
         <input
             type="text"
             name="search"
-            class="h-14 w-full pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none"
+            class="h-14 w-full pl-10 pr-20 rounded-lg border-2 border-yellow-500 bg-[#1f1f1f] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 z-0"
             placeholder="Szukaj w bazie..."
         />
         <div class="absolute top-2 right-2">
