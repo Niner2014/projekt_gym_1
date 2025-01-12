@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ListeKlienciFactory extends Factory
 {
-    protected $model = \App\Models\ListeKlienci::class; // Upewnij się, że model jest poprawny
+    protected $model = \App\Models\ListeKlienci::class; 
 
     public function definition(): array
     {

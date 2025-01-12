@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Route;
 use App\Models\ListeKlienci;
 use App\Models\Klient;
 
-// Trasy wymagające logowania
+
 Route::middleware('auth')->group(function () {
-    // Strona główna z możliwością wyszukiwania
+    
     Route::get('/', function () {
-        $search = request()->input('search'); // Pobieramy frazę z formularza wyszukiwania
+        $search = request()->input('search'); 
         
-        // Wyszukiwanie klientów po imieniu, nazwisku, e-mailu i telefonie
+        
         if ($search) {
             $klienci = ListeKlienci::where('imie', 'like', "%{$search}%")
                 ->orWhere('nazwisko', 'like', "%{$search}%")
@@ -25,15 +25,15 @@ Route::middleware('auth')->group(function () {
                 ->orWhere('telefon', 'like', "%{$search}%")
                 ->get();
         } else {
-            // Jeżeli brak frazy, pobieramy wszystkich klientów
+            
             $klienci = ListeKlienci::all();
         }
         
-        // Zwracamy widok z wynikami wyszukiwania
+        
         return view('simple', [
             'heading' => 'Bieżące logowanie',
-            'variable' => $klienci, // Przekazujemy zmienną klienci do widoku
-            'search' => $search,    // Fraza wyszukiwania
+            'variable' => $klienci, 
+            'search' => $search,    
         ]);
     });
     
@@ -77,7 +77,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-// Trasy publiczne - logowanie i rejestracja
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

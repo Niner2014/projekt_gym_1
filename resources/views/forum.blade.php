@@ -6,12 +6,12 @@
 <div class="lg:grid lg:grid-cols-3 gap-8 space-y-4 md:space-y-0 mx-4">
     
     
-        <!-- Formularz do dodawania wiadomości -->
+        
         <form action="{{ route('forum.store') }}" method="POST">
             @csrf
             <label for="message" class="text-white">Wiadomość:</label>
             
-            <!-- Zmieniony textarea z większym obszarem i statycznym border -->
+            
             <textarea name="message" id="message" class="p-3 rounded mb-4 w-full" style="background-color: #333; color: #fff; border: 1px solid #666; resize: none;" rows="5" required></textarea>
             
             <button type="submit" class="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 transition duration-300">Dodaj wiadomość</button>

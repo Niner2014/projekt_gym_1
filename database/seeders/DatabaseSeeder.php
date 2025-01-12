@@ -11,6 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\ListeKlienci::factory(10)->create(); // Użyj fabryki dla liste_uzytkownicy
+        \App\Models\ListeKlienci::factory(10)->create(); 
     }
 }

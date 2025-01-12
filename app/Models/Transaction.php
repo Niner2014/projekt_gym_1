@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    protected $table = 'transactions';  // Nazwa tabeli w bazie danych
-    protected $fillable = ['description', 'total_price'];  // Pola, które chcemy wypełnić
+    protected $table = 'transactions';  
+    protected $fillable = ['description', 'total_price'];  
 }

@@ -6,7 +6,7 @@
 <div class="container mx-auto my-8 px-4">
     <h1 class="text-3xl font-bold text-center text-yellow-500 mb-6">Stan magazynowy produktów</h1>
 
-    <!-- Komunikat o sukcesie -->
+   
     @if(session('success'))
         <div class="bg-green-500 text-white p-4 rounded-md mb-4">
             {{ session('success') }}
@@ -15,7 +15,7 @@
 
     <form action="{{ route('magazyn.update') }}" method="POST">
         @csrf
-        @method('PUT') <!-- Dodajemy metodę PUT tutaj -->    
+        @method('PUT')   
 
         <div class="overflow-x-auto bg-gray-800 rounded-lg shadow-md">
             <table class="min-w-full table-auto text-white">
@@ -33,7 +33,8 @@
                         <td class="py-2 px-4 border-b">
                             <img src="{{ asset($produkt->zdjecie ? 'storage/' . $produkt->zdjecie : 'storage/produkty/brak.jpg') }}" 
                             alt="{{ $produkt->name }}" 
-                            class="w-16 h-16 object-cover rounded-md">
+                            class="w-16 h-16 object-cover rounded-md"
+                            class="py-2 px-4 border-b">{{ $produkt->name }}
                         </td>
                         <td class="py-2 px-4 border-b">
                             <input type="number" name="products[{{ $produkt->id }}][stock]" class="bg-gray-700 text-white w-20 text-center rounded-md border border-gray-600" value="{{ $produkt->stock }}" min="0">

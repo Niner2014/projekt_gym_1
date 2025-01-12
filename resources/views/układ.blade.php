@@ -15,9 +15,9 @@
             theme: {
                 extend: {
                     colors: {
-                        primaryBg: "#363434", /* Ciemne tło */
-                        primaryText: "#f1f1f1", /* Jasny tekst */
-                        accentYellow: "#FFD700", /* Żółte akcenty */
+                        primaryBg: "#363434", 
+                        primaryText: "#f1f1f1", 
+                        accentYellow: "#FFD700", 
                     },
                 },
             },
@@ -55,7 +55,7 @@
             <li>
                 <div class="relative">
                     <a href="#" class="text-accentYellow hover:text-white" id="menu-toggle">Linki Wspomagające</a>
-                    <!-- Rozwijane menu -->
+                    
                     <div class="absolute left-0 hidden bg-gray-700 text-white p-0 rounded shadow-lg mt-2 w-48"
                         id="dropdown-menu">
                         <a href="https://www.google.com" class="block py-1 hover:bg-gray-600 px-2" target="_blank"
@@ -118,29 +118,29 @@
     </main>
 
     <script>
-        // Zmienna do przechowywania referencji do menu
+        
         const menu = document.getElementById('dropdown-menu');
         const menuToggle = document.getElementById('menu-toggle');
 
-        // Funkcja do wyświetlania menu
+        
         function toggleMenu() {
             menu.classList.toggle('hidden');
         }
 
-        // Funkcja do ukrywania menu, jeśli klikniemy poza nie
+        
         function closeMenuIfClickedOutside(event) {
             if (!menu.contains(event.target) && !menuToggle.contains(event.target)) {
                 menu.classList.add('hidden');
             }
         }
 
-        // Dodajemy nasłuchiwanie na kliknięcie
+        
         menuToggle.addEventListener('click', function(event) {
-            event.stopPropagation(); // Zapobiegamy propagacji kliknięcia, aby nie zamknęło menu od razu
-            toggleMenu(); // Zmień stan widoczności menu
+            event.stopPropagation(); 
+            toggleMenu(); 
         });
 
-        // Nasłuchiwanie kliknięć w innych częściach strony, aby zamknąć menu, jeśli klikniemy poza nim
+        
         document.addEventListener('click', closeMenuIfClickedOutside);
     </script>
 </body>

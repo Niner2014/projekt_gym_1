@@ -4,12 +4,12 @@
 @include('partials._hero')
 
 <div class="container mx-auto my-8 px-4 flex space-x-8">
-    <!-- Główna sekcja kalkulatora sprzedaży -->
+    
     <div class="w-2/3 bg-gray-800 p-6 rounded-lg shadow-md">
         <h1 class="text-3xl font-bold text-center text-yellow-500 mb-6">Kalkulator sprzedaży</h1>
     
         <form action="#" method="POST" class="space-y-6">
-            <!-- Wybór produktu -->
+            
             <div>
                 <label for="produkt" class="text-white text-xl">Wybierz produkt:</label>
                 <select id="produkt" class="bg-gray-700 text-white w-full py-2 px-4 rounded-md border border-gray-600">
@@ -28,20 +28,20 @@
                 </select>
             </div>
     
-            <!-- Wprowadzenie ilości -->
+            
             <div>
                 <label for="ilosc" class="text-white text-xl">Ilość:</label>
                 <input type="number" id="ilosc" class="bg-gray-700 text-white w-full py-2 px-4 rounded-md border border-gray-600" value="1" min="1">
             </div>
     
-            <!-- Przycisk do dodania przedmiotu do koszyka -->
+            
             <div class="flex justify-end">
                 <button type="button" id="dodaj" class="bg-yellow-500 hover:bg-yellow-400 text-white py-2 px-6 rounded-md">Dodaj do koszyka</button>
             </div>
         </form>
     </div>
     
-    <!-- Boczne wyświetlanie dostępnych przedmiotów -->
+   
     <div class="w-1/3 bg-gray-800 p-6 rounded-lg shadow-md">
         <h2 class="text-2xl text-white mb-4">Dostępne produkty</h2>
         <ul class="space-y-4 text-white">
@@ -57,14 +57,14 @@
     </div>
 </div>
 
-<!-- Podsumowanie koszyka -->
+
 <div class="container mx-auto my-8 px-4 bg-gray-800 p-6 rounded-lg shadow-md">
     <h2 class="text-2xl text-white mb-4">Twój koszyk</h2>
     <ul id="koszyk" class="space-y-4 text-white">
-        <!-- Produkty dodane do koszyka pojawią się tutaj -->
+        
     </ul>
 
-    <!-- Podsumowanie -->
+    
     <div class="mt-4 text-white">
         <p class="text-xl">Całkowita cena: <span id="cena_koszyka">0,00 PLN</span></p>
         <button id="sprzedaz" class="bg-green-500 hover:bg-green-400 text-white py-2 px-6 rounded-md mt-4">Dokonaj sprzedaży</button>
@@ -76,7 +76,7 @@
     const produkty = @json($produkty);
     let koszyk = [];
 
-    // Dodawanie produktów do koszyka
+    
     document.getElementById('dodaj').addEventListener('click', () => {
         const produktId = document.getElementById('produkt').value;
         const ilosc = parseInt(document.getElementById('ilosc').value, 10);
@@ -117,7 +117,7 @@
         document.getElementById('cena_koszyka').textContent = `${cenaKoszyka.toFixed(2)} PLN`;
     });
 
-    // Sprzedaż
+    
     document.getElementById('sprzedaz').addEventListener('click', async () => {
         if (koszyk.length === 0) {
             alert('Koszyk jest pusty!');
@@ -150,7 +150,7 @@
         }
     });
 
-    // Generowanie rejestru dobowego (na razie sztywno)
+    
     document.getElementById('generuj-rejestr').addEventListener('click', () => {
         alert('Rejestr dobowy został wygenerowany!');
     });
@@ -164,22 +164,22 @@
 </div>
 
 <script>
-    // Po kliknięciu na przycisk generujemy rejestr
+    
     document.getElementById('generujRejestr').addEventListener('click', function() {
-        // Używamy AJAX do wysłania żądania do kontrolera
+        
         fetch('/rejestr/pdf', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
         })
-        .then(response => response.blob())  // Odbieramy PDF w formie blob
+        .then(response => response.blob())  
         .then(blob => {
-            // Tworzymy link do pobrania PDF
+            
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = 'rejestr_dobowy.pdf';  // Nazwa pliku do pobrania
-            link.click();  // Uruchamiamy pobieranie
+            link.download = 'rejestr_dobowy.pdf';  
+            link.click();  
         })
         .catch(error => {
             console.error('Błąd przy generowaniu rejestru:', error);

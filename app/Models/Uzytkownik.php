@@ -11,10 +11,10 @@ class Uzytkownik extends Model implements AuthenticatableContract
 {
     use HasFactory, Authenticatable;
 
-    protected $table = 'uzytkownik'; // Upewnij się, że wskazuje na odpowiednią tabelę
+    protected $table = 'uzytkownik'; 
 
-    protected $fillable = ['name', 'password']; // Dodaj pola, które mogą być masowo przypisane
+    protected $fillable = ['name', 'password']; 
 
-    // Jeśli używasz pamięci podręcznej, dodaj inne kolumny, które chcesz mieć
-    protected $hidden = ['password']; // Ukryj hasło przy pobieraniu
+   
+    protected $hidden = ['password']; 
 }

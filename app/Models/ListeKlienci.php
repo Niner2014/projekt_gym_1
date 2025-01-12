@@ -32,18 +32,18 @@ class ListeKlienci extends Model
         'aktywny' => 'boolean',
     ];
 
-    // Metoda, która sprawdza, czy klient jest aktywny w zależności od daty zapisania
+    
     public function getCzyAktywnyAttribute()
     {
         return Carbon::parse($this->data_zapisania)->addDays(30)->isFuture();
     }
 
-    // Uruchamia zdarzenie `updated` po każdej aktualizacji rekordu
+    
     protected static function boot()
     {
         parent::boot();
 
-        // Zdarzenie po każdej aktualizacji rekordu
+        
         static::updated(function ($klient) {
             if ($klient->getCzyAktywnyAttribute()) {
                 $klient->aktywny = true;

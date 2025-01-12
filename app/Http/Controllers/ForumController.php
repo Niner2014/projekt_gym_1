@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ForumController extends Controller
 {
-    // Wyświetlanie wiadomości
+    
     public function index()
     {
-        // Wczytanie wiadomości z pliku
+        
         $messages = $this->getMessagesFromFile();
         
-        // Ograniczenie liczby wiadomości do 25 i odwrócenie kolejności
+        
         $messages = array_slice($messages, 0, 25);
         $messages = array_reverse($messages);
     
@@ -20,32 +20,32 @@ class ForumController extends Controller
     }
     
 
-    // Zapisanie nowej wiadomości do pliku
+    
     public function store(Request $request)
     {
-        // Walidacja wiadomości
+        
         $request->validate([
             'message' => 'required|string',
         ]);
 
-        // Pobieranie nazwy użytkownika z aktualnie zalogowanego użytkownika
-        $userName = Auth::check() ? Auth::user()->name : 'Anonymous'; // Jeżeli użytkownik jest zalogowany, użyj jego nazwy, w przeciwnym razie 'Anonymous'
+        
+        $userName = Auth::check() ? Auth::user()->name : 'Anonymous'; 
 
-        // Przygotowanie wiadomości do zapisania
+        
         $messageData = [
             'user_name' => $userName,
             'message' => $request->message,
             'created_at' => now()->format('d.m.Y H:i'),
         ];
 
-        // Zapisanie wiadomości w pliku
+        
         $this->saveMessageToFile($messageData);
 
-        // Przekierowanie z komunikatem o sukcesie
+        
         return redirect()->route('forum')->with('success', 'Wiadomość została dodana!');
     }
 
-    // Funkcja do pobierania wiadomości z pliku
+    
     private function getMessagesFromFile()
 {
     $filePath = storage_path('app/messages.txt');
@@ -71,14 +71,14 @@ class ForumController extends Controller
 }
 
 
-    // Funkcja do zapisywania wiadomości w pliku
+    
     private function saveMessageToFile($messageData)
     {
         $filePath = storage_path('app/messages.txt');
 
         $message = "Użytkownik: {$messageData['user_name']}\nWiadomość: {$messageData['message']}\nData: {$messageData['created_at']}\n\n";
 
-        // Zapisanie wiadomości do pliku
+        
         file_put_contents($filePath, $message, FILE_APPEND);
     }
 }

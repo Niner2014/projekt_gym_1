@@ -43,12 +43,12 @@
             </ul>
         </div>
 
-        <!-- Przycisk do edytowania danych klienta -->
+        
         <button id="editClientButton" class="mt-4 bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-400 focus:outline-none">
             Edytuj dane klienta
         </button>
 
-        <!-- Formularz edycji danych klienta, początkowo ukryty -->
+        
         <div id="editClientForm" class="hidden border-t border-gray-200 py-4 mt-4">
             <h4 class="text-xl font-semibold mb-2 text-yellow-500">Edytuj dane klienta</h4>
         
@@ -85,7 +85,7 @@
 </div>
 
 <script>
-    // Funkcja, która pokazuje/ukrywa formularz po kliknięciu przycisku
+    
     document.getElementById('editClientButton').addEventListener('click', function() {
         const form = document.getElementById('editClientForm');
         form.classList.toggle('hidden');

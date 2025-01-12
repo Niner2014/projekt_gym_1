@@ -11,9 +11,9 @@
             theme: {
                 extend: {
                     colors: {
-                        customGray: "#141414", // Ciemny szary
-                        customDarkGray: "#2D2D2D", // Ciemniejszy szary
-                        customYellow: "#FFD700", // Żółty
+                        customGray: "#141414", 
+                        customDarkGray: "#2D2D2D", 
+                        customYellow: "#FFD700", 
                     },
                 },
             },

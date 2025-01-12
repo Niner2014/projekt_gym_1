@@ -9,7 +9,7 @@ class AuthController extends Controller
 {
     public function showRegistrationForm()
     {
-        return view('register'); // Upewnij się, że ta linia jest poprawna
+        return view('register'); 
     }
 
     public function register(Request $request)
@@ -17,10 +17,9 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'required|string|min:8|confirmed',
-            'admin_code' => 'required|string', // Walidacja kodu admina
+            'admin_code' => 'required|string', 
         ]);
         
-        // Sprawdzenie poprawności kodu admina
         if ($request->admin_code !== 'Admin218') {
             return back()->withErrors(['admin_code' => 'Kod dostępu admina jest nieprawidłowy.']);
         }
@@ -35,12 +34,11 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
-        return view('login'); // Upewnij się, że ta linia jest poprawna
+        return view('login'); 
     }
 
     public function login(Request $request)
     {
-        // Walidacja danych logowania
         $request->validate([
             'name' => 'required|string',
             'password' => 'required|string',
@@ -48,11 +46,9 @@ class AuthController extends Controller
 
         // Próba zalogowania użytkownika
         if (auth()->attempt(['name' => $request->name, 'password' => $request->password])) {
-            // Po udanym logowaniu przekieruj do strony głównej
-            return redirect('/'); // Użyj '/' aby wrócić do głównej trasy
+            return redirect('/'); 
         }
 
-        // Jeśli nie udało się zalogować, przekieruj z błędem
         return back()->withErrors([
             'name' => 'Podane dane są nieprawidłowe.',
         ]);
